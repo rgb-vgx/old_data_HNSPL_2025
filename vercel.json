@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "athletes.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "athlete_histories.json",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/athletes.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}
