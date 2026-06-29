@@ -883,13 +883,18 @@ function renderDetail(id) {
     upcomingHtml = '<div class="upcoming-empty">Chưa có lịch thi đấu sắp tới</div>';
   }
 
+  let individualCount = 0;
   let historyHtml = '';
   if (a.lich_su && a.lich_su.length > 0) {
     historyHtml = a.lich_su.map(m => {
-      const isWin = m.trandauthamgia && m.trandauthamgia.some(t => t.ket_qua === 'Thắng');
-      const isLoss = m.trandauthamgia && m.trandauthamgia.some(t => t.ket_qua === 'Thua');
+      const subs = m.trandauthamgia || [];
+      individualCount += subs.length;
+      const isWin = subs.some(t => t.ket_qua === 'Thắng');
+      const isLoss = subs.some(t => t.ket_qua === 'Thua');
       const resultClass = isWin ? 'win' : isLoss ? 'loss' : '';
       const resultText = m.doi_chien_thang_tran_dau || '';
+      const subCount = subs.length;
+      const subLabels = subs.map(t => t.loai_dau === 2 ? 'Đôi' : 'Đơn').join(', ');
       return `<div class="match-card">
         <div class="match-summary">
           <div class="match-team left">${escHtml(m.doi_a_ten || '?')}</div>
@@ -900,11 +905,11 @@ function renderDetail(id) {
             <span>${m.gio_thi_dau || ''}</span>
             <span>${resultText}</span>
             <span>Set: ${m.tiso_setdau || '?'}</span>
-            <span>Điểm: ${m.tongdiem_toanbo_setdau || '?'}</span>
+            <span>${subCount} trận (${subLabels})</span>
           </div>
         </div>
         <div class="match-detail">
-          ${(m.trandauthamgia || []).map(t => renderTranDau(t)).join('')}
+          ${subs.map(t => renderTranDau(t)).join('')}
         </div>
       </div>`;
     }).join('');
@@ -925,12 +930,12 @@ function renderDetail(id) {
         <div class="overview-card"><div class="value ${ptsClass}">${ptsSign}${pts.toFixed(1)}</div><div class="label">Điểm tích lũy</div></div>
         <div class="overview-card"><div class="value">${a.so_tran_thang || 0}</div><div class="label">Trận thắng</div></div>
         <div class="overview-card"><div class="value">${a.so_tran_thua || 0}</div><div class="label">Trận thua</div></div>
-        <div class="overview-card"><div class="value">${a.tong_so_tran || 0}</div><div class="label">Tổng trận</div></div>
+        <div class="overview-card"><div class="value">${a.tong_so_tran || 0}</div><div class="label">Tổng trận cá nhân</div></div>
         <div class="overview-card"><div class="value">${wrPct}%</div><div class="label">Tỉ lệ thắng</div></div>
       </div>
 
       <div class="match-section">
-        <h3>&#128197; Lịch sử thi đấu (${a.lich_su ? a.lich_su.length : 0} trận)</h3>
+        <h3>&#128197; Lịch sử thi đấu <span style="font-weight:400;font-family:var(--font-body);font-size:0.85rem;color:var(--text-muted)">(${a.lich_su.length} ngày, ${individualCount} trận cá nhân)</span></h3>
         ${historyHtml}
       </div>
 
