@@ -905,7 +905,7 @@ function renderDetail(id) {
             <span>${m.gio_thi_dau || ''}</span>
             <span>${resultText}</span>
             <span>Set: ${m.tiso_setdau || '?'}</span>
-            <span>${subCount} trận (${subLabels})</span>
+            <span>${subCount} sub match (${subLabels})</span>
           </div>
         </div>
         <div class="match-detail">
@@ -930,12 +930,12 @@ function renderDetail(id) {
         <div class="overview-card"><div class="value ${ptsClass}">${ptsSign}${pts.toFixed(1)}</div><div class="label">Điểm tích lũy</div></div>
         <div class="overview-card"><div class="value">${a.so_tran_thang || 0}</div><div class="label">Trận thắng</div></div>
         <div class="overview-card"><div class="value">${a.so_tran_thua || 0}</div><div class="label">Trận thua</div></div>
-        <div class="overview-card"><div class="value">${a.tong_so_tran || 0}</div><div class="label">Tổng trận cá nhân</div></div>
+        <div class="overview-card"><div class="value">${a.tong_so_tran || 0}</div><div class="label">Tổng sub match</div></div>
         <div class="overview-card"><div class="value">${wrPct}%</div><div class="label">Tỉ lệ thắng</div></div>
       </div>
 
       <div class="match-section">
-        <h3>&#128197; Lịch sử thi đấu <span style="font-weight:400;font-family:var(--font-body);font-size:0.85rem;color:var(--text-muted)">(${a.lich_su.length} ngày, ${individualCount} trận cá nhân)</span></h3>
+        <h3>&#128197; Lịch sử thi đấu <span style="font-weight:400;font-family:var(--font-body);font-size:0.85rem;color:var(--text-muted)">(${a.lich_su.length} trận đội, ${individualCount} sub match)</span></h3>
         ${historyHtml}
       </div>
 
